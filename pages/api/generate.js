@@ -33,17 +33,18 @@ export default async function (req, res) {
     let clientKeywordsArray = [];
     businessKeywordsArray = Businesskeyword.split(",");
     clientKeywordsArray = clientKeyword.split(",");
-    if (businessKeywordsArray.length !== clientKeywordsArray.length) {
-      throw new Error(
-        "Business keyword length does not match with client keyword length"
-      );
+    if (
+      businessKeywordsArray.length === 0 ||
+      clientKeywordsArray.length === 0
+    ) {
+      throw new Error("Please enter atleast one keyword");
     }
     let response;
     let responseData = [];
-    for (let i = 0; i <= businessKeywordsArray.length - 1; i++) {
+    for (let i = 0; i <= clientKeywordsArray.length - 1; i++) {
       const promtReplace = PROMPT.replace(
         "<Business Description>",
-        businessKeywordsArray[i]
+        businessKeywordsArray[0]
       );
       const ReplacementPromt = promtReplace.replace(
         "<Client Description>",
